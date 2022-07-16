@@ -1,0 +1,25 @@
+{
+  "name": "atlanticcity-discordbot",
+  "version": "1.0.0",
+  "description": "Atlantic City 2.0s Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zuntie/AtlanticCity-DiscordBot.git"
+  },
+  "keywords": [
+    "discordbot"
+  ],
+  "author": "Zuntie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zuntie/AtlanticCity-DiscordBot/issues"
+  },
+  "homepage": "https://github.com/Zuntie/AtlanticCity-DiscordBot#readme",
+  "dependencies": {
+    "discord.js": "^13.8.1"
+  }
+}
