@@ -1145,6 +1145,146 @@ async function startTickets() {
                 components: [row],
             })
 }
+async function startRegler() {
+    const channel = client.channels.cache.get(Config.regler_channel);
+            const embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription('*For at læse Atlantic Citys regler, skal du bruge knapperne nedenfor.*\n*Obs. Alle regler skal læses, men du kan selv vælge rækkefølgen.*\n\n' +
+                '**Generelt**\nGenerelle regler, der vedrører discorden.' +
+                '\n\n**Roleplay**\nRoleplay regler der vedrører, hvordan ens roleplay skal foregå.' +
+                '\n\n**Multikaraktere**\nRegler de vedrører ens karaktere.' +
+                '\n\n**OOC / Karakterbrud**\nRegler der vedrører OOC, og brud af karakter.' +
+                '\n\n**Kørsel**\nRegler der vedrører ens kørsel.' +
+                '\n\n**Arbejde**\nRegler der vedrører ens arbejde og, hvordan det skal fremføres.' +
+                '\n\n**Opkald & Kommunikation**\nRegler der vedrører opkald til alarmcentralen, og hvordan der skal kommunikeres.' +
+                '\n\n**Bugs, Snyd, Hacking & Exploiting**\nRegler der vedrører snyd, og andet i den form.' +
+                '\n\n**Gruppinger & Bander**\nRegler om gruppinger og bander der vedrører, hvordan det skal foregå.' +
+                '\n\n**Bandekrig**\nRegler for, hvordan en bandekrig skal foregå.' +
+                '\n\n**Røverier**\nRegler om, hvordan røverier af diverse ting skal foregå.' +
+                '\n\n**Karakterdrab (CK)**\nRegler der vedrører et karakterdrab og, hvordan det skal udføres.' +
+                '\n\n**Handlinger**\nRegler der vedrører hans handlinger i på FiveM serveren.' +
+                '\n\n**Køb & Salg (Real Money Trading)**\nRegler der involverer køb og salg af ingame ting, for rigtige penge.')
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageSelectMenu()
+                        .setCustomId('regler_type')
+                        .setPlaceholder('Vælg Her')
+                        .addOptions([
+                            {
+                                label: 'Generelt',
+                                description: 'Generelle regler, der vedrører discorden.',
+                                value: 'generelt'
+                            },
+                            {
+                                label: 'Roleplay',
+                                description: 'Roleplay regler der vedrører, hvordan ens roleplay skal foregå.',
+                                value: 'roleplay'
+                            },
+                            {
+                                label: 'Multikaraktere',
+                                description: 'Regler de vedrører ens karaktere.',
+                                value: 'multikaraktere'
+                            },
+                            {
+                                label: 'OOC / Karakterbrud',
+                                description: 'Regler der vedrører OOC, og brud af karakter.',
+                                value: 'ooc'
+                            },
+                            {
+                                label: 'Kørsel',
+                                description: 'Regler der vedrører ens kørsel.',
+                                value: 'kørsel'
+                            },
+                            {
+                                label: 'Arbejde',
+                                description: 'Regler der vedrører ens arbejde og, hvordan det skal fremføres.',
+                                value: 'arbejde'
+                            },
+                            {
+                                label: 'Opkald & Kommunikation',
+                                description: 'Regler der vedrører opkald til alarmcentralen.',
+                                value: 'opkald'
+                            },
+                            {
+                                label: 'Bugs, Snyd, Hacking & Exploiting',
+                                description: 'Regler der vedrører snyd, og andet i den form.',
+                                value: 'bugs'
+                            },
+                            {
+                                label: 'Gruppinger & Bander',
+                                description: 'Regler om gruppinger og bander.',
+                                value: 'grupperinger'
+                            },
+                            {
+                                label: 'Bandekrig',
+                                description: 'Regler for, hvordan en bandekrig skal foregå.',
+                                value: 'bandekrig'
+                            },
+                            {
+                                label: 'Røverier',
+                                description: 'Regler om, hvordan røverier af diverse ting skal foregå.',
+                                value: 'røverier'
+                            },
+                            {
+                                label: 'Karakterdrab (CK)',
+                                description: 'Regler der vedrører et karakterdrab.',
+                                value: 'karakterdrab'
+                            },
+                            {
+                                label: 'Handlinger',
+                                description: 'Regler der vedrører hans handlinger i på FiveM serveren.',
+                                value: 'handlinger'
+                            },
+                            {
+                                label: 'Køb & Salg (Real Money Trading)',
+                                description: 'Regler der involverer køb og salg.',
+                                value: 'køb'
+                            },
+                        ])
+                )
+
+            /*
+                
+            GENERELLE REGLER / OUTGAME REGLER
+            ROLEPLAY REGLER
+            FLERE KARAKTERERFLERE KARAKTERER
+            Out Of Character (OOC) / Karakterbrud
+            KØRSEL
+            ARBEJDE
+            OPKALD OG KOMMUNIKATION
+            BUGS, SNYD, HACKING, EXPLOITING
+            GRUPPERINGER / BANDER
+            BANDEKRIG
+            RØVERIER
+            KARAKTERDRAB (CK)
+            HANDLINGER
+            KØB & SALG (REAL MONEY TRADING)
+
+            */
+
+            try {
+                channel.messages.fetch({ limit: 100 }).then(messages => {
+                    messages.forEach(message2 => {
+                        setTimeout(() => {
+                            if (message2.author.id == client.user.id) {
+                                message2.delete()
+                            } else {
+                            }
+                        }, 100)
+                    });
+                }).catch(console.error);
+            } catch (err) {
+                log(`Fejl ved sletning af besked.\n\n**${err.name}**: ${err.message}`, 'error');
+            }
+
+            channel.send({
+                embeds: [embed],
+                components: [row]
+            })
+}
 async function startSystems() {
     startWhitelist()
     startAnsøgninger()
@@ -1152,6 +1292,7 @@ async function startSystems() {
     startServerDrift()
     startFAQ()
     startTickets()
+    startRegler()
 }
 
 // User Join \\
@@ -2086,6 +2227,136 @@ client.on('interactionCreate', async (interaction) => {
             }
         }
     }
+
+    if (commandName == 'reglercreate') {
+        if (interaction.member.roles.cache.has(StaffRole)) {
+            log('<@' + interaction.user.id + '> brugte kommandoen **/reglercreate**.')
+            const channel = client.channels.cache.get(Config.regler_channel);
+            const embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription('*For at læse Atlantic Citys regler, skal du bruge knapperne nedenfor.*\n*Obs. Alle regler skal læses, men du kan selv vælge rækkefølgen.*\n\n' +
+                '**Generelt**\nGenerelle regler, der vedrører discorden.' +
+                '\n\n**Roleplay**\nRoleplay regler der vedrører, hvordan ens roleplay skal foregå.' +
+                '\n\n**Multikaraktere**\nRegler de vedrører ens karaktere.' +
+                '\n\n**OOC / Karakterbrud**\nRegler der vedrører OOC, og brud af karakter.' +
+                '\n\n**Kørsel**\nRegler der vedrører ens kørsel.' +
+                '\n\n**Arbejde**\nRegler der vedrører ens arbejde og, hvordan det skal fremføres.' +
+                '\n\n**Opkald & Kommunikation**\nRegler der vedrører opkald til alarmcentralen, og hvordan der skal kommunikeres.' +
+                '\n\n**Bugs, Snyd, Hacking & Exploiting**\nRegler der vedrører snyd, og andet i den form.' +
+                '\n\n**Gruppinger & Bander**\nRegler om gruppinger og bander der vedrører, hvordan det skal foregå.' +
+                '\n\n**Bandekrig**\nRegler for, hvordan en bandekrig skal foregå.' +
+                '\n\n**Røverier**\nRegler om, hvordan røverier af diverse ting skal foregå.' +
+                '\n\n**Karakterdrab (CK)**\nRegler der vedrører et karakterdrab og, hvordan det skal udføres.' +
+                '\n\n**Handlinger**\nRegler der vedrører hans handlinger i på FiveM serveren.' +
+                '\n\n**Køb & Salg (Real Money Trading)**\nRegler der involverer køb og salg af ingame ting, for rigtige penge.')
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageSelectMenu()
+                        .setCustomId('regler_type')
+                        .setPlaceholder('Vælg Her')
+                        .addOptions([
+                            {
+                                label: 'Generelt',
+                                description: 'Generelle regler, der vedrører discorden.',
+                                value: 'generelt'
+                            },
+                            {
+                                label: 'Roleplay',
+                                description: 'Roleplay regler der vedrører, hvordan ens roleplay skal foregå.',
+                                value: 'roleplay'
+                            },
+                            {
+                                label: 'Multikaraktere',
+                                description: 'Regler de vedrører ens karaktere.',
+                                value: 'multikaraktere'
+                            },
+                            {
+                                label: 'OOC / Karakterbrud',
+                                description: 'Regler der vedrører OOC, og brud af karakter.',
+                                value: 'ooc'
+                            },
+                            {
+                                label: 'Kørsel',
+                                description: 'Regler der vedrører ens kørsel.',
+                                value: 'kørsel'
+                            },
+                            {
+                                label: 'Arbejde',
+                                description: 'Regler der vedrører ens arbejde og, hvordan det skal fremføres.',
+                                value: 'arbejde'
+                            },
+                            {
+                                label: 'Opkald & Kommunikation',
+                                description: 'Regler der vedrører opkald til alarmcentralen.',
+                                value: 'opkald'
+                            },
+                            {
+                                label: 'Bugs, Snyd, Hacking & Exploiting',
+                                description: 'Regler der vedrører snyd, og andet i den form.',
+                                value: 'bugs'
+                            },
+                            {
+                                label: 'Gruppinger & Bander',
+                                description: 'Regler om gruppinger og bander.',
+                                value: 'grupperinger'
+                            },
+                            {
+                                label: 'Bandekrig',
+                                description: 'Regler for, hvordan en bandekrig skal foregå.',
+                                value: 'bandekrig'
+                            },
+                            {
+                                label: 'Røverier',
+                                description: 'Regler om, hvordan røverier af diverse ting skal foregå.',
+                                value: 'røverier'
+                            },
+                            {
+                                label: 'Karakterdrab (CK)',
+                                description: 'Regler der vedrører et karakterdrab.',
+                                value: 'karakterdrab'
+                            },
+                            {
+                                label: 'Handlinger',
+                                description: 'Regler der vedrører hans handlinger i på FiveM serveren.',
+                                value: 'handlinger'
+                            },
+                            {
+                                label: 'Køb & Salg (Real Money Trading)',
+                                description: 'Regler der involverer køb og salg.',
+                                value: 'køb'
+                            },
+                        ])
+                )
+
+            /*
+                
+            GENERELLE REGLER / OUTGAME REGLER
+            ROLEPLAY REGLER
+            FLERE KARAKTERERFLERE KARAKTERER
+            Out Of Character (OOC) / Karakterbrud
+            KØRSEL
+            ARBEJDE
+            OPKALD OG KOMMUNIKATION
+            BUGS, SNYD, HACKING, EXPLOITING
+            GRUPPERINGER / BANDER
+            BANDEKRIG
+            RØVERIER
+            KARAKTERDRAB (CK)
+            HANDLINGER
+            KØB & SALG (REAL MONEY TRADING)
+
+            */
+
+            channel.send({
+                embeds: [embed],
+                components: [row]
+            })
+
+        }
+    }
 })
 
 // Select Menuer \\
@@ -2735,6 +3006,291 @@ client.on('interactionCreate', async interaction => {
                     })
                 }
             })
+        }
+    }
+
+    if (interaction.customId === 'regler_type') {
+        if (value == 'generelt') {
+            const generelt_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                '**GENERELLE REGLER / OUTGAME REGLER**' +
+                '\n\n**0.0** : Det er ikke tilladt at kontakte server personale i private beskeder uden forudgående accept. Brug vores support-kanaler på Discord.' +
+                '\n\n**0.1** : Reklame og/eller links er ikke tilladt, dette indgår også ens discord status. (Discord-tag "Streamer / CC" er undtaget af denne regel, og må gerne have eget Twitch-link i navn.)' +
+                '\n\n**0.2** : Atlantic City tager stor afstand til udstilling/chikane/racisme/mobning generelt, og forbeholder sig retten til at sanktionere for dette for at opretholde et positivt fællesskab.' +
+                '\n\n**0.3** : Det er ikke tilladt at være saltet/toxic (overfor andre brugere) i communityet, og kan medfører ban. Vi ønsker en god tone og et voksent community.' +
+                '\n\n**0.4** : Du må ikke blande dig i andres admin/support sager, med mindre at du selv har været en del af RPen. (Grove overtrædelser såsom: RDM, VDM, Bugabuse etc. er undtaget)' +
+                '\n\n**0.5** : Din bruger samt dit whitelist hos Atlantic City er personligt, og må ikke udleveres eller udlånes til anden part (eller tredje part).'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [generelt_embed],
+                ephemeral: true
+            })
+        } else if (value == 'roleplay') {
+            const roleplay_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**ROLEPLAY REGLER**' +
+                    '\n\n**1.0** : Tænk realistisk - du skal opføre dig som du ville i virkeligheden.' +
+                    '\n\n**1.1** : ("FearRP") Du skal frygte for dit liv. Det betyder f.eks. at du ikke må trække våben, hvis der peges våben mod dig.' +
+                    '\n\n**1.2** : ("Meta-gaming") Du må ikke tage viden, som du har fået udenfor spillet, og bruge det ingame. Dette gælder f.eks. information fra en livestream eller via Discord. Det er heller ikke tilladt at dele din karakters tanker via /me eller /do command.' +
+                    '\n\n**1.3** : ("RDM") Random DeathMatch, ("VDM") Vehicle DeathMatch eller metagaming vil der blive slået meget hårdt ned på, da dette anses som FailRP. Nul tolerance.' +
+                    '\n\n**1.4** : Husk altid at have et bevis og karakter ID hvis du vil anklage en anden spiller for et regelbrud eller et tvivlsomt scenarie.' +
+                    'Vi anbefaler eksempelvis at have Medal.tv kørende, så hvis du bliver udsat for noget har du altid et klip af situationen - dog ikke et krav.' +
+                    '\n\n**1.5** : Powergaming er ikke tilladt.' +
+                    '\n\n**1.6** : Det er max tilladt at være 8 kriminelle i et RP-scenarie med samme kriminelle formål - andet vil anses som powergaming.' +
+                    '\n\n**1.7** : Spil realistisk omkring befærdede områder, politistationer, hospitaler, bandeområder og lignende.' +
+                    '\n\n**1.8** : Det er ikke tilladt at ændre grundelementerne i din karakters udseende for at undgå at folk kan genkende din karakter.' +
+                    '\n\n**1.9** : Det er ikke tilladt at logge ud hvis man er involveret i et igangværende scenarie.' +
+                    '\n\n**1.10** : Du må ikke bruge server genstart/crashes som en mulighed til at flygte fra en RP situation. Du venter på personer involverede vender tilbage og fortsætter hvis scenariet ikke er afsluttet - evt. brug #hyggesnak til at høre om personen kommer tilbage.' +
+                    '\n\n**1.11** : Det er ikke tilladt at bruge optagelser fra enten streams eller 3.-parts programmer i RP scenarier. Dog med disse undtagelser:' +
+                    'Banker, politistationer, hospitaler, og andre steder som har godkendte overvågningskameraer. Disse kan bruges som dokumention i RP. (f.eks. politisag eller retssag)' +
+                    '\n\n**1.12** : Voldtægts RP er ikke tilladt.')
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [roleplay_embed],
+                ephemeral: true
+            })
+        } else if (value == 'multikaraktere') {
+            const multikaraktere_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**MULTIKARAKTER REGLER**' +
+                    '\n\n**2.0** : Du kan maxs have 2 karaktere.' +
+                    '\n\n**2.1** : Har du flere whitelistede karakterer, så må dine karakterer ikke have relationer, eller kende til hinanden.'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [multikaraktere_embed],
+                ephemeral: true
+            })
+        } else if (value == 'ooc') {
+            const ooc_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**OUT OF CHARACTER (OOC) / KARAKTERBRUD REGLER**'+
+                    '\n\n**3.0** : ("OOC") Det er ikke tilladt at bryde din karakter, altså at tale ude af karakter ("out of character"). Tag den på Discord eller kontakt en admin hvis nødvendigt.' +
+                    '\n\n**3.1** : Alle support-sager skal tages på Discord i support-kanalerne.'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [ooc_embed],
+                ephemeral: true
+            })
+        } else if (value == 'kørsel') {
+            const kørsel_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**KØRSEL REGLER**' +
+                    '\n\n**4.0** : Kør realistisk. Sportsvogne kan ikke køre i bjerge eller køre 400km/t i grus.' +
+                    '\n\n**4.1** : Såfremt man er i en bil jagt/flugt, er det kun tilladt at benytte veje, stier, gyder eller lign. som er markeret på kortet.' +
+                    '\n\n*Der er massere af sjove, alternative og "off-road" veje markeret på kortet.*' +
+                    '\n*Mindre flyvehop er også OK, så længe man husker at spille på sine skader, og at det ikke er åbenlyst for at slippe væk fra modparten.*' +
+                    '\n*Reglen er lavet med det formål at skabe nogle sjovere, længere og mere realistiske chases for alle.*' +
+                    '\n\n**4.2** : Det er ikke tilladt at tiltrække Politiets opmærksomhed unødvendigt uden RP-grund (Copbait).'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [kørsel_embed],
+                ephemeral: true
+            })
+        } else if (value == 'arbejde') {
+            const arbejde_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**ARBEJDE REGLER**' +
+                    '\n\n**5.0** : Er du på arbejde, så skal du passe dit job. Vil du lave noget andet, skal du gå af job og holde fri. ' +
+                    '\n\n**5.1** : Husk at køre i dit rigtige arbejds- køretøj. Er du pengetransportør, så kører du ikke i sportsvogn, etc.'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+            
+            interaction.reply({
+                embeds: [arbejde_embed],
+                ephemeral: true
+            })
+        } else if (value == 'opkald') {
+            const opkald_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**OPKALD OG KOMMUNIKATION REGLER**' +
+                    '\n\n**6.0** : Ved tilkald af læge, politi, taxi, advokat osv. så skal du beskrive hvad der sker, og ikke bare: “Kom her”, “Skynd jer” osv. Tænk over din henvendelse, og brug lidt tid på den.' +
+                    '\n\n**6.1** : Det er ikke tilladt at bruge andre kommunikationskanaler udenfor spillet til meta-gaming. Vi henviser til in-game værktøjer såsom telefon eller radio.' +
+                    '\n\n**6.2** : Det er tilladt at sidde i vores hygge-kanaler når man er in-game, så længe at der ikke tales om ting på serveren / i spillet. Henviser til regel §1.3'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [opkald_embed],
+                ephemeral: true
+            })
+
+        } else if (value == 'bugs') {
+            const bugs_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**BUGS, SNYD, HACKING, EXPLOITING REGLER**' + 
+                    '\n\n**7.0** : Det er givetvis ikke tilladt at hacke, exploite, modde eller på anden måde snyde. Dette resulterer i permanent ban uden varsel.' +
+                    '\n\n**7.1** : Finder man bugs skal disse indberettes det øjeblikkeligt via ticket system. Misbruger man dette resulterer det i permanent ban uden varsel.'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [bugs_embed],
+                ephemeral: true
+            })
+
+        } else if (value == 'grupperinger') {
+            const grupperinger_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**GRUPPERINGER / BANDER REGLER**' +
+                    '\n\n**8.0** : Man må max være 10 medlemmer i en gruppering/bande.' +
+                    '\n\n**8.1** : Det er ikke tilladt for banderne at have en decideret klike. Dog er det tilladt at have et samarbejde mod/omkring et kortsigtet fællesmål.' +
+                    '\n\nHusk! Vi opfordrer til RP fremfor mord og hævntogter.'
+
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+            
+            interaction.reply({
+                embeds: [grupperinger_embed],
+                ephemeral: true
+            })
+        } else if (value == 'bandekrig') {
+            const bandekrig_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**BANDEKRIG REGLER**' +
+                    '\n*Disse regler er kun relevante hvis man er med i en godkendt bandekrig*' +
+                    '\n\n**9.0** : Såfremt en gruppering ønsker at indgå i en krig med en anden bande, skal der oprettes en ansøgning på følgende måde: Opret en ticket på vores discord, hvori det kort beskrives hensigten med den oprettede ticket. Vedhæft et udfærdiget skriftligt dokument, hvor i grundlaget for jeres ønske om en krig klarlægges.' +
+                    '\n\n**9.1** : En bandekrig kan foregå mellem to ELLER flere godkendte grupperinger. Grupperinger må ikke kæmpe på samme side (samme modstander) i en bandekrig med flere deltagere.' +
+                    '\n\n**Grundlæggende**' +
+                    '\n**9.2** : Såfremt en krig bliver godkendt af Staff eller projekt leder skal alle de involverede grupperinger gøres bekendt med at en officiel krig vil starte. Krigen er først officielt startet, når alle involverede grupperinger er underrettet af Staff eller projekt leder.' +
+                    '\n\n**9.3** : En gruppering kan maximalt have 10 medvirkende spillere i krigen. (jf. regel 8.0)' +
+                    '\n\n**9.4** : Det er kun whitelistede spillere til deltagende grupperinger, som kan deltage i en bandekrig.' +
+                    '\n\n**9.5** : Spillere som ikke er whitelisted til en deltagende gruppering ved bandekrigens godkendelse, kan ikke deltage i krigen.' +
+                    '\n\n**9.6** : Det er yderligere tilladt at have 3 spottere i krigen. Disse må IKKE ikke hjælpe til med midler (våben, penge, etc.)' +
+                    '\n\n**Igangværende krige**' +
+                    '\n*Under en godkendt krig er ALLE medlemmer fra de involverede grupperinger, spottere samt evt. frivilligt deltagende underlagt de pågældende regler:*' +
+                    '\n\n**9.7** : Når en spiller bliver nedkæmpet (ved brug af våben), skal han/hun tage sit bandetøj af, således andre deltagere tydeligt kan se, at vedkommende ikke deltager aktivt i krigen længere.' +
+                    '\n\n*Alle nedkæmpelser skal dokumenteres på video.*' +
+                    '\n*Ejere/Bande ansvarlige kan afvise nedkæmpelser, således spilleren kan fortsætte i krigen.*' +
+                    '\n*Såfremt en spiller bliver nedkæmpet og ikke "genoplivet" inden for 10 min, vil spilleren være ude af krigen, uanset hvordan scenariet fortsætter.*' +
+                    '\n*Det er ikke tilladt at bringe en nedkæmpet modstander som gidsel til sit eget eller andres tilholdssted.*' +
+                    '\n\n**9.8** : Såfremt en deltager i krigen har 3 efterfølgende dages inaktivitet, kan Ejere/Bande ansvarlige udlukke deltageren fra krigen.' +
+                    '\n\n**9.9** : Under krigen skal grupperingens deltagere iføre sig synligt tøj med logo/navn eller andet tøj genkendeligt fra grupperingen. Dette gælder ikke spottere.' +
+                    '\n\n**Afslutning af en krig/konflikt**' +
+                    '\n\n**9.10** : En bandekrig kan afsluttes med godkendelse af Ejere/Bande ansvarlige på følgende vis:' +
+                    '\n\n*Alle deltagere i en deltagende gruppering er nedkæmpet.*' +
+                    '\n*Et af de deltagende grupperinger "kaster håndklædet i ringen".*' +
+                    '\n*Der aftales en gensidig våbenhvile blandt de deltagende grupperinger.*' +
+                    '\n\n**9.11** : Ejere/Bande ansvarlige kan til enhver tid afbryde en krig.'
+                    
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [bandekrig_embed],
+                ephemeral: true
+            })
+        } else if (value == 'røverier') {
+            const røveri_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**RØVERI REGLER**' +
+                    '\n\n**Bank- og butiksrøverier**' +
+                    '\n\n**10.0** : Der må maks. være 4 kriminelle til et butiksrøveri.' +
+                    '\n\n**10.1** : Der må gerne tages gidsler så længe at antallet bliver holdt på et realistisk niveau og gidsel bliver inddraget i scenariet.' +
+                    '\n\n**10.2** : Sørg for at holde eventuelle forhandlingskrav rimelige. (Ingen betjent kan skaffe 1.000.000 i kontanter)' +
+                    '\n\n**10.3** : Der må ikke skydes før der har været et forsøg på forhandlinger.' +
+                    '\n\n**10.4** : Et røveri skal planlægges. Dvs. man røver ikke butikker/banker flere gange dagligt (røveri-streaks) - eller smutter fra området efter et netop startet røveri uden at færdiggøre det.' +
+                    '\n\n**Røveri af andre spillere**' +
+                    '\n\n**10.5** : Det er tilladt at røve andre spillere for de værdier de har på sig. Dog er det ikke tilladt at tvinge en spiller til at overdrage en bil eller et hjem.' +
+                    '\n\n**10.6** : Det er kun tilladt at tvinge sig til indholdet af andre spilleres køretøjer, såfremt der har været forudgående RP med spilleren, og hvis køretøjet i forvejen er en naturlig del af scenariet.' +
+                    '\n\n**10.7** : Det er ikke tilladt, at tvinge folk til at tage et køretøj ud af garagen, med mindre køretøjet er blevet parkeret få sekunder inden, ligesom køretøjet skal have været en naturlig del af scenariet '
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [røveri_embed],
+                ephemeral: true
+            })
+        } else if (value == 'karakterdrab') {
+            const karakterdrab_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**KARAKTERDRAB (CK) REGLER**' +
+                    '\n\n**11.0** : Ens karakter kan ikke blive ck medmindre at man selv er indforstået med dette, dog med disse undtagelser:' +
+                    '\n\n*Hvis du nægter genoplivning fra Beredskabet  eller Politi, så er det ens betydende med at din karakter bliver dræbt.*' +
+                    '\n*Begår du selvmord ingame kan en ansat hos Beredskabet erklære dig død, og dermed også et karakterdrab.*' +
+                    '\n\n**11.1** : Det er ikke tilladt at give eller gamble sine værdier væk inden karakterdrab eller efterfølgende at modtage dem på sin nye karakter.' +
+                    '\n\n**11.3** : Ønsker du en anden spiller dræbt/CKet skal der oprettes en ansøgning til CK ansvarlige på følgende vis:' +
+                    '\n\n*Opret en ticket på vores discord, hvori der kort beskrives meningen med denne ticket. Ydermere skal der vedhæftes et udarbejdet tekstdokument, hvori grundlaget for det ønskede CK tydeligt oplyses.*' +
+                    '\n*Herefter vil l CK ansvarlige tage stilling til, hvorvidt ansøgningen er godkendt eller ej.*' +
+                    '\n*Såfremt ansøgningen bliver godkendt, kan der udføres et drab på den ansøgte person.*' +
+                    '\n*Det er et krav, at der omkring drabsscenariet skal have foregået RP mellem den dræbte og ansøgeren. (Et driveby skyderi vil f.eks. ikke blive godkendt som et CK)*' +
+                    '\n*Der skal herefter fremsendes en videofil fra scenariet, hvori drabet tydeligt klarlægges.*' +
+                    '\n*projekt leder og ck ansværlige kan til enhver tid afvise et CK.*' +
+                    '\n\n*Ønsker man at få sin egen karakter dræbt, kan du ansøge om det under Vis Karakterer.*' +
+                    '\n*Får du en ny karakter ved du naturligvis intet om hvad der er foregået i dit tidligere liv.*' 
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [karakterdrab_embed],
+                ephemeral: true
+            })
+        } else if (value == 'handlinger') {
+            const handlinger_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription( 
+                    '**HANDLINGER REGLER**' +
+                    '\n\n**12.0** : Du skal bruge handlinger som passer bedst til den situation som du står i.' +
+                    '\n\n**EKSEMPELVIS**' +
+                    '\nArgumenter når du forhandler med NPCer' +
+                    '\nPlant / Farm handling ved høst (svampe, valmuer etc.) når man er kriminel.'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [handlinger_embed],
+                ephemeral: true
+            })
+        } else if (value == 'køb') {
+            const køb_embed = new MessageEmbed()
+                .setTitle('__Atlantic City 2.0 - Regler__')
+                .setDescription(
+                    '**KØB & SALG (REAL MONEY TRADING)**' +
+                    '\n\n**13.0** : Det er på ingen måde tilladt at handle med rigtige penge (eller andre ting af værdi) om ting inde i spillet. Dette strider også imod FiveMs egne Terms of Service.' +
+                    '\nOpdages dette vil det resultere i permanent ban uden varsel.' +
+                    '\n\n**13.1** : Forsøg på salg med rigtige penge (eller andre ting af værdi) straffes på samme måde som beskrevet i 13.0'
+                )
+                .setFooter({ text: 'Atlantic City 2.0 - Regler', iconURL: logo })
+                .setColor('#0099ff')
+
+            interaction.reply({
+                embeds: [køb_embed],
+                ephemeral: true
+            })
+
         }
     }
 })
@@ -4209,6 +4765,11 @@ client.on('ready', () => {
     commands?.create({
         name: 'serverdrift',
         description: 'Tjekker serverens drift. DEV ONLY.',
+    })
+
+    commands?.create({
+        name: 'reglercreate',
+        description: 'Opretter reglerne. DEV ONLY.',
     })
 
     log('Loadede alle kommandoer.')
