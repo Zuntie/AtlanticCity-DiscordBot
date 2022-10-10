@@ -1,5 +1,5 @@
 {
-    "token": "OTk3ODYwNjE4NTMzMDkzMzkw.GqRfbF.2DzAvc0J_VdAhQyW4w_z-ncfkru90n-Py8mjPE",
-    "twitch_clientid": "g54gked5sqtyo9dgsq2to8348smlip",
-    "twitch_clientsecret": "5a7dah3dx6gqm1xspbks20hxcs9cz1"
+    "token": "DISCORD_BOT_TOKEN",
+    "twitch_clientid": "TWITCH_CLIENT_ID",
+    "twitch_clientsecret": "TWITCH_CLIENT_SECRET"
 }
